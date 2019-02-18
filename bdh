@@ -1,73 +1,106 @@
 #! /bin/bash
 
-#How to exec:
-#Use -t or -T to show all FS as Tb values.  
-#Use -g or -G to show all FS as Gb values.
-#Use -m or -M to show all FS as Mb values.
-#Use -k or -K or use no parameters to show all FS as Kb values. 
+#############################################################
+# BDH - Easy and safe way to monitor Unix and Linux FS use  #
+# AUTHOR - Leonardo Macedo | macedojleo@gmail.com           #
+# FIRST RELEASE: 2013                                       #
+# LAST UPDATED: 02-18-2019                                  #
+#	        - Now you can customize thresholds.         #
+#               - Send alerts to slack through webhook app. #
+#               - Deamon mode.                              #
+#               - Log files                                 #
+#		- Fix bugs.                                 #
+#############################################################
 
-case $1 in
+#set thresholds here:                                   
 
--t | -T )
+Def_major="70";
+Def_critical="85";
+Def_urgent="95";
 
-        Filesystem=`df -Pk | grep -v ^Filesystem`;
+#Put your incoming Slack app webhook URL here:
+
+SlackWebHook="CHANGE TO YOUR URL"
+
+usage()
+{
+  echo -e "Usage: $0 [-t | -g | -m | -k ] [ -d Interval in seconds]"
+  echo -e "\t OPTIONS:"
+  echo -e "\t -t or -T show all FS as Tb values."
+  echo -e "\t -g or -G show all FS as Gb values."
+  echo -e "\t -m or -M show all FS as Mb values."
+  echo -e "\t -k or -K show all FS as Kb values."
+  echo -e "\t -d or -D [INTERVAL IN SECONDS] - Daemon mode. It will send alert messages to SLACK"
+  exit 2
+}
+
+log ()
+{
+ #Change here the log dir.
+ logdir="/tmp";
+ fs=$1;
+ used=$2;
+ free=$3;
+ percent=$4;
+ logType=$5;
+ PRG_PID=$6;
+ timeStamp=`date +%D-%H:%M:%S`;
+ logTimeStamp=`date +%m%d%y`;
+
+ if [ ! -d $logdir ];then
+	 echo "$logdir does not exists! Impossible to write file $logdir/bdh_$logTimeStamp.log";
+	 exit 1;
+ fi
+
+ if [[ $logType != "START" ]]; then
+	 echo $logType " | " $timeStamp" | FS:" $fs "| Used:" $used "kb | Free:" $free "kb | "$percent"%" >> $logdir/bdh_$logTimeStamp.log
+ fi
+
+ if [[ $logType == "START" ]]; then
+	 echo $logType " | " $timeStamp" | Starting process in Deamon mode | PID: " $PRG_PID " | logFile: $logdir/bdh_$logTimeStamp.log" >> $logdir/bdh_$logTimeStamp.log;
+ fi
+ 
+}
+
+alert()
+{
+
+ url=$1;
+ messageType=$2;
+ FS=$3;
+ used=$4;
+ free=$5;
+ icon=$6;
+ timeStamp=`date +%D-%H:%M:%S`;
+ msg="$messageType: $icon FS $FS has only $free Kb free ( $used% used ) - $timeStamp";
+ json="{\"text\":\"$msg\"}";
+ #curl -X POST -H 'Content-type: application/json' --data '{"text":\"$msg\"}' $url
+ curl -s -d "payload=$json" "$url"
+
+}
+
+while getopts 'd:D:gGmMkKhH' OPTION; do
+ case $OPTION in
+ g | G )
+
+        Filesystem=`df -Pk | grep -v ^Filesystem | sed "s#%##g"`;
 
         for FS in "$Filesystem"; do
-
-                echo "$FS" | awk 'BEGIN {
+		echo "$FS" | awk -v THR_urg="$Def_urgent" -v  THR_cri="$Def_critical" -v THR_maj="$Def_major"  'BEGIN {
                                         format_header="%-50s %-10s %-12s %-15s %-8s %-8s\n"
                                         use_format="";
-                                        printf(format_header, "FILESYSTEM", "TOTAL (TB)", "USED (TB)", "AVAILABLE (TB)", "IN USE", "MOUNTED ON");
+					metricType="Gb";
+                                        printf(format_header, "MOUNT POINT", "TOTAL", "USED", "AVAILABLE", "IN USE", "FS");
                                 }
 
                                 {
 
-                                        total=$2/1024/1024/1024;
-                                        used=$3/1024/1024/1024;
-                                        available=$4/1024/1024/1024;
-                                        F_total=sprintf("%.4f", total);
-                                        F_used=sprintf("%.4f", used);
-                                        F_available=sprintf("%.4f", available);
-
-                                        format="%-50s %-10s %-12s %-15s %-8s %-8s\n";
-                                        urgent="\033[5;31;1m" format "\033[0m";
-                                        critical="\033[31;1m" format "\033[0m";
-                                        major="\033[33;1m" format "\033[0m";
-                                        #normal="\033[37;1m" format "\033[0m";
-                                        normal="\030[37;1m" format "\030[0m";
-                                        low="\033[32;1m" format "\033[0m";
-
-                                        if ( substr($5,2,1) == "%" ) { use_format=normal}
-                                        else if ( substr($5,4,1) == "%" ) { use_format=urgent; }
-                                        else if ( substr($5,1,2) >= 70 && substr($5,1,2) < 80 ) { use_format=major; }
-                                        else if ( substr($5,1,2) >= 80 && substr($5,1,2) < 95 ) { use_format=critical; }
-                                        else if ( substr($5,1,2) >= 95 ) { use_format=urgent; }
-                                        else { use_format=normal }
-                                        printf(use_format, $1, F_total, F_used, F_available, $5, $6);
-                                }'       
-        done
-;;
-
--g | -G )
-
-        Filesystem=`df -Pk | grep -v ^Filesystem`;
-
-        for FS in "$Filesystem"; do
-
-                echo "$FS" | awk 'BEGIN {
-                                        format_header="%-50s %-10s %-12s %-15s %-8s %-8s\n"
-                                        use_format="";
-                                        printf(format_header, "FILESYSTEM", "TOTAL (GB)", "USED (GB)", "AVAILABLE (GB)", "IN USE", "MOUNTED ON");
-                                }
-
-                                {
-
-                                        total=$2/1024/1024;
+					total=$2/1024/1024;
                                         used=$3/1024/1024;
-                                        available=$4/1024/1024;
-                                        F_total=sprintf("%.2f", total);
-                                        F_used=sprintf("%.2f", used);
-                                        F_available=sprintf("%.2f", available);
+                                        available=$4/1024;
+                                        F_total=sprintf("%.0f", total);
+                                        F_used=sprintf("%.0f", used);
+                                        F_available=sprintf("%.0f", available);
 
                                         format="%-50s %-10s %-12s %-15s %-8s %-8s\n";
                                         urgent="\033[5;31;1m" format "\033[0m";
@@ -76,27 +109,27 @@ case $1 in
                                         normal="\033[37;1m" format "\033[0m";
                                         low="\033[32;1m" format "\033[0m";
 
-                                        if ( substr($5,2,1) == "%" ) { use_format=normal}
-                                        else if ( substr($5,4,1) == "%" ) { use_format=urgent; }
-                                        else if ( substr($5,1,2) >= 70 && substr($5,1,2) < 80 ) { use_format=major; }
-                                        else if ( substr($5,1,2) >= 80 && substr($5,1,2) < 95 ) { use_format=critical; }
-                                        else if ( substr($5,1,2) >= 95 ) { use_format=urgent; }
-                                        else { use_format=normal }
-                                        printf(use_format, $1, F_total, F_used, F_available, $5, $6);
+                                        if ($5 >= THR_maj && $5 < THR_cri) { use_format=major; }
+                                        else if ( $5 >= THR_cri && $5 <= THR_urg) { use_format=critical;}
+                                        else if ( $5 >= THR_urg ) {use_format=urgent;}
+                                        else {use_format=normal;}
+					printf(use_format, $1, F_total"("metricType")", F_used "("metricType")", F_available"("metricType")", $5"%", $6)
+
+
                                 }'
         done
-;;
+ ;;
 
--m | -M )
+ m | M )
 
-        Filesystem=`df -Pk | grep -v ^Filesystem`;
+        Filesystem=`df -Pk | grep -v ^Filesystem | sed "s#%##g"`;
 
         for FS in "$Filesystem"; do
-
-                echo "$FS" | awk 'BEGIN {
+		echo "$FS" | awk -v THR_urg="$Def_urgent" -v  THR_cri="$Def_critical" -v THR_maj="$Def_major"  'BEGIN {
                                         format_header="%-50s %-10s %-12s %-15s %-8s %-8s\n"
                                         use_format="";
-                                        printf(format_header, "FILESYSTEM", "TOTAL (MB)", "USED (MB)", "AVAILABLE (MB)", "IN USE", "MOUNTED ON");
+					metricType="Mb"
+                                        printf(format_header, "MOUNT POINT", "TOTAL", "USED", "AVAILABLE", "IN USE", "FS");
                                 }
 
                                 {
@@ -115,57 +148,81 @@ case $1 in
                                         normal="\033[37;1m" format "\033[0m";
                                         low="\033[32;1m" format "\033[0m";
 
-                                        if ( substr($5,2,1) == "%" ) { use_format=normal}
-                                        else if ( substr($5,4,1) == "%" ) { use_format=urgent; }
-                                        else if ( substr($5,1,2) >= 70 && substr($5,1,2) < 80 ) { use_format=major; }
-                                        else if ( substr($5,1,2) >= 80 && substr($5,1,2) < 95 ) { use_format=critical; }
-                                        else if ( substr($5,1,2) >= 95 ) { use_format=urgent; }
-                                        else { use_format=normal }
-                                        printf(use_format, $1, F_total, F_used, F_available, $5, $6);
+					if ($5 >= THR_maj && $5 < THR_cri) { use_format=major; }
+					else if ( $5 >= THR_cri && $5 <= THR_urg) { use_format=critical;}
+					else if ( $5 >= THR_urg ) {use_format=urgent;}
+					else {use_format=normal;}
+					printf(use_format, $1, F_total"("metricType")", F_used "("metricType")", F_available"("metricType")", $5"%", $6)
                                 }'
         done
 ;;
 
--k | -K | "" )
+ k | K )
 
-        Filesystem=`df -Pk | grep -v ^Filesystem`; 
+        Filesystem=`df -Pk | grep -v ^Filesystem | sed "s#%##g"`; 
 
         for FS in "$Filesystem"; do
 
-                echo "$FS" | awk 'BEGIN {
+                echo "$FS" | awk -v THR_urg="$Def_urgent" -v  THR_cri="$Def_critical" -v THR_maj="$Def_major" 'BEGIN {
                                         format_header="%-50s %-10s %-12s %-15s %-8s %-8s\n"
                                         use_format="";
-                                        printf(format_header, "FILESYSTEM", "TOTAL (KB)", "USED (KB)", "AVAILABLE (KB)", "IN USE", "MOUNTED ON");
+					metricType="Kb"
+                                        printf(format_header, "MOUNT POINT", "TOTAL", "USED", "AVAILABLE", "IN USE", "FS");
                                 }
 
                                 {
 
-                                        total=$2;
+					total=$2;
                                         used=$3;
                                         available=$4;
                                         F_total=sprintf("%.0f", total);
                                         F_used=sprintf("%.0f", used);
                                         F_available=sprintf("%.0f", available);
 
-                                        format="%-50s %-10s %-12s %-15s %-8s %-8s\n";
+                                        format="%-50s %-15s %-12s %-18s %-8s %-8s\n";
                                         urgent="\033[5;31;1m" format "\033[0m";
                                         critical="\033[31;1m" format "\033[0m";
                                         major="\033[33;1m" format "\033[0m";
                                         normal="\033[37;1m" format "\033[0m";
                                         low="\033[32;1m" format "\033[0m";
 
-                                        if ( substr($5,2,1) == "%" ) { use_format=normal}
-                                        else if ( substr($5,4,1) == "%" ) { use_format=urgent; }
-                                        else if ( substr($5,1,2) >= 70 && substr($5,1,2) < 80 ) { use_format=major; }
-                                        else if ( substr($5,1,2) >= 80 && substr($5,1,2) < 95 ) { use_format=critical; }
-                                        else if ( substr($5,1,2) >= 95 ) { use_format=urgent; }
-                                        else { use_format=normal }
-                                        printf(use_format, $1, F_total, F_used, F_available, $5, $6); 
+                                        if ($5 >= THR_maj && $5 < THR_cri) { use_format=major; }
+                                        else if ( $5 >= THR_cri && $5 <= THR_urg) { use_format=critical;}
+                                        else if ( $5 >= THR_urg ) {use_format=urgent;}
+                                        else {use_format=normal;}
+					printf(use_format, $1, F_total"("metricType")", F_used "("metricType")", F_available"("metricType")", $5"%", $6)
                                 }'
         done
-;;
+ ;;
+ 
+ d | D )
 
-* )
-        echo "Parametro incorreto ($1). Utilize: bdh -[k|K|m|M|g|G|t|T] / Incorrect parameter ($1). Use: bdh -[k|K|m|M|g|G|t|T]";
-        exit 1;
-esac
+ wait=$OPTARG;	
+ log "" "" "" "" "START" $$; 	
+ Filesystem=`df -Pk | grep -v ^Filesystem | sed "s#%##g"`;
+        #for FS in "$Filesystem"; do
+	while read FS; do
+		FS_name=`echo $FS | awk '{ print $1 }'`;
+                used=`echo $FS | awk '{ print $3 }'`;
+                available=`echo $FS | awk '{ print $4 }'`;
+                percent=`echo $FS | awk '{ print $5 }'`;
+		if [[ $percent -ge $Def_urgent ]]; then
+			alert $SlackWebHook "Urgent" $FS_name $percent $available ":name_badge:";
+		        log $FS_name $used $available $percent "URGENT"; 	
+		elif [[ $percent -ge $Def_critical ]]; then
+			alert $SlackWebHook "Critical" $FS_name $percent $available ":bomb:";
+		        log $FS_name $used $available $percent "CRITICAL"; 	
+		fi
+		        log $FS_name $used $available $percent "INFO"; 	
+
+        done <<< "$Filesystem"
+ ;;
+ h | H )
+	usage
+ ;;
+
+ *)
+ echo "ERROR: Use $0 -h for help";
+ exit 1;
+ esac
+done
