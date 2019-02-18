@@ -20,7 +20,11 @@ Def_urgent="95";
 
 #Put your incoming Slack app webhook URL here:
 
+<<<<<<< HEAD
 SlackWebHook="CHANGE TO YOUR URL"
+=======
+SlackWebHook="https://hooks.slack.com/services/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"
+>>>>>>> 0b47bd18ea97108dcfc462cb80d2b0ec297687ae
 
 usage()
 {
@@ -43,7 +47,10 @@ log ()
  free=$3;
  percent=$4;
  logType=$5;
+<<<<<<< HEAD
  PRG_PID=$6;
+=======
+>>>>>>> 0b47bd18ea97108dcfc462cb80d2b0ec297687ae
  timeStamp=`date +%D-%H:%M:%S`;
  logTimeStamp=`date +%m%d%y`;
 
@@ -52,12 +59,21 @@ log ()
 	 exit 1;
  fi
 
+<<<<<<< HEAD
  if [[ $logType != "START" ]]; then
 	 echo $logType " | " $timeStamp" | FS:" $fs "| Used:" $used "kb | Free:" $free "kb | "$percent"%" >> $logdir/bdh_$logTimeStamp.log
  fi
 
  if [[ $logType == "START" ]]; then
 	 echo $logType " | " $timeStamp" | Starting process in Deamon mode | PID: " $PRG_PID " | logFile: $logdir/bdh_$logTimeStamp.log" >> $logdir/bdh_$logTimeStamp.log;
+=======
+ if [ "$logType" != "START" ]; then
+	 echo $logType " | " $timeStamp" | FS:" $fs "| Used:" $used "kb | Free:" $free "kb | "$percent"%" >> $logdir/bdh_$logTimeStamp.log
+ fi
+
+ if [ "$logType" == "START" ]; then
+	 echo $logType " | " $timeStamp" | Starting process in Deamon mode | PID: " $! " | logFile: $logdir/bdh_$logTimeStamp.log" >> $logdir/bdh_$logTimeStamp.log;
+>>>>>>> 0b47bd18ea97108dcfc462cb80d2b0ec297687ae
  fi
  
 }
@@ -198,7 +214,11 @@ while getopts 'd:D:gGmMkKhH' OPTION; do
  d | D )
 
  wait=$OPTARG;	
+<<<<<<< HEAD
  log "" "" "" "" "START" $$; 	
+=======
+ log $FS_name $used $available $percent "START"; 	
+>>>>>>> 0b47bd18ea97108dcfc462cb80d2b0ec297687ae
  Filesystem=`df -Pk | grep -v ^Filesystem | sed "s#%##g"`;
         #for FS in "$Filesystem"; do
 	while read FS; do
@@ -208,7 +228,11 @@ while getopts 'd:D:gGmMkKhH' OPTION; do
                 percent=`echo $FS | awk '{ print $5 }'`;
 		if [[ $percent -ge $Def_urgent ]]; then
 			alert $SlackWebHook "Urgent" $FS_name $percent $available ":name_badge:";
+<<<<<<< HEAD
 		        log $FS_name $used $available $percent "URGENT"; 	
+=======
+		        log $FS_name $used $available $percent "ALERT"; 	
+>>>>>>> 0b47bd18ea97108dcfc462cb80d2b0ec297687ae
 		elif [[ $percent -ge $Def_critical ]]; then
 			alert $SlackWebHook "Critical" $FS_name $percent $available ":bomb:";
 		        log $FS_name $used $available $percent "CRITICAL"; 	
