@@ -101,5 +101,5 @@ To change the directory where bdh will write the log file, change the value of t
 
 * **Leonardo Macedo** - *Linux SYSADM, IT Consultant and Shell script developer* - macedojleo@gmail.com
 
-Please, if you like this project, mark the star! I will be very grateful!
+If you like this project, please mark the star! I will be very grateful! :)
 
