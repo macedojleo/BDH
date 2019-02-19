@@ -30,7 +30,6 @@ usage()
 {
   echo -e "Usage: $0 [-t | -g | -m | -k ] [ -d Interval in seconds ] [-s]"
   echo -e "\t OPTIONS:"
-  echo -e "\t -t or -T show all FS as Tb values."
   echo -e "\t -g or -G show all FS as Gb values."
   echo -e "\t -m or -M show all FS as Mb values."
   echo -e "\t -k or -K show all FS as Kb values."
@@ -228,8 +227,9 @@ while getopts d:D:gGmMkKhHsS OPTION; do
 		elif [[ $percent -ge $Def_critical ]]; then
 			alert $SlackWebHook "Critical" $FS_name $percent $available ":bomb:";
 		        log $FS_name $used $available $percent "CRITICAL"; 	
-		fi
-		        log $FS_name $used $available $percent "INFO"; 	
+		else	
+		        log $FS_name $used $available $percent "INFO";
+		fi	
 
         done <<< "$Filesystem"
  sleep $wait; 
