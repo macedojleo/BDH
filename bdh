@@ -211,9 +211,6 @@ while getopts d:D:gGmMkKhHsS OPTION; do
 	 pkill $oldPrFile 2>/dev/null;
  fi
  
-
- log "" "" "" "" "START" $prPID "$wait";
-
  while true; do
   Filesystem=`df -Pk | grep -v ^Filesystem | sed "s#%##g"`;
 	while read FS; do
@@ -236,6 +233,8 @@ while getopts d:D:gGmMkKhHsS OPTION; do
  done &
  prPID=$!
  echo $prPID > $prFile;
+
+ log "" "" "" "" "START" $prPID "$wait";
  ;;
 
  s | S )
