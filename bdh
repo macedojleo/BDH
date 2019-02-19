@@ -4,53 +4,53 @@
 # BDH - Easy and safe way to monitor Unix and Linux FS use  #
 # AUTHOR - Leonardo Macedo | macedojleo@gmail.com           #
 # FIRST RELEASE: 2013                                       #
-# LAST UPDATED: 02-18-2019                                  #
+# LAST UPDATED: 02-19-2019                                  #
 #	        - Now you can customize thresholds.         #
 #               - Send alerts to slack through webhook app. #
 #               - Deamon mode.                              #
 #               - Log files                                 #
+#	        - STOP -s or -S                             #
 #		- Fix bugs.                                 #
 #############################################################
 
-#set thresholds here:                                   
+#set alarm thresholds here:                                   
 
 Def_major="70";
 Def_critical="85";
 Def_urgent="95";
 
+#File that stores the PID program
+prFile=".bdhpid";
+
 #Put your incoming Slack app webhook URL here:
 
-<<<<<<< HEAD
-SlackWebHook="CHANGE TO YOUR URL"
-=======
-SlackWebHook="https://hooks.slack.com/services/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"
->>>>>>> 0b47bd18ea97108dcfc462cb80d2b0ec297687ae
+SlackWebHook="INSERT YOUR WEBHOOK URL HERE"
 
 usage()
 {
-  echo -e "Usage: $0 [-t | -g | -m | -k ] [ -d Interval in seconds]"
+  echo -e "Usage: $0 [-t | -g | -m | -k ] [ -d Interval in seconds ] [-s]"
   echo -e "\t OPTIONS:"
   echo -e "\t -t or -T show all FS as Tb values."
   echo -e "\t -g or -G show all FS as Gb values."
   echo -e "\t -m or -M show all FS as Mb values."
   echo -e "\t -k or -K show all FS as Kb values."
-  echo -e "\t -d or -D [INTERVAL IN SECONDS] - Daemon mode. It will send alert messages to SLACK"
+  echo -e "\t -d or -D [INTERVAL IN SECONDS] - Daemon mode. It will send alert messages to SLACK using WEBHOOK APP"
+  echo -e "\t -s or -S - Stop bdh daemon process"
   exit 2
 }
 
 log ()
 {
- #Change here the log dir.
+ #Change here logdir (log will be generated only in daemon mode).
  logdir="/tmp";
+
  fs=$1;
  used=$2;
  free=$3;
  percent=$4;
  logType=$5;
-<<<<<<< HEAD
  PRG_PID=$6;
-=======
->>>>>>> 0b47bd18ea97108dcfc462cb80d2b0ec297687ae
+ other=$7;
  timeStamp=`date +%D-%H:%M:%S`;
  logTimeStamp=`date +%m%d%y`;
 
@@ -59,23 +59,14 @@ log ()
 	 exit 1;
  fi
 
-<<<<<<< HEAD
- if [[ $logType != "START" ]]; then
+ if [[ $logType != "START"  &&  $logType != "STOP" ]]; then
 	 echo $logType " | " $timeStamp" | FS:" $fs "| Used:" $used "kb | Free:" $free "kb | "$percent"%" >> $logdir/bdh_$logTimeStamp.log
+ elif [[ $logType == "START" ]]; then
+	echo "$logType  |  $timeStamp | PID:  $PRG_PID INTERVAL: $other | logFile: $logdir/bdh_$logTimeStamp.log" >> $logdir/bdh_$logTimeStamp.log;
+ elif [[ $logType == "STOP" ]];then
+	echo "$logType  |  $timeStamp | Process stopped by $other" >> $logdir/bdh_$logTimeStamp.log;
  fi
 
- if [[ $logType == "START" ]]; then
-	 echo $logType " | " $timeStamp" | Starting process in Deamon mode | PID: " $PRG_PID " | logFile: $logdir/bdh_$logTimeStamp.log" >> $logdir/bdh_$logTimeStamp.log;
-=======
- if [ "$logType" != "START" ]; then
-	 echo $logType " | " $timeStamp" | FS:" $fs "| Used:" $used "kb | Free:" $free "kb | "$percent"%" >> $logdir/bdh_$logTimeStamp.log
- fi
-
- if [ "$logType" == "START" ]; then
-	 echo $logType " | " $timeStamp" | Starting process in Deamon mode | PID: " $! " | logFile: $logdir/bdh_$logTimeStamp.log" >> $logdir/bdh_$logTimeStamp.log;
->>>>>>> 0b47bd18ea97108dcfc462cb80d2b0ec297687ae
- fi
- 
 }
 
 alert()
@@ -91,11 +82,12 @@ alert()
  msg="$messageType: $icon FS $FS has only $free Kb free ( $used% used ) - $timeStamp";
  json="{\"text\":\"$msg\"}";
  #curl -X POST -H 'Content-type: application/json' --data '{"text":\"$msg\"}' $url
- curl -s -d "payload=$json" "$url"
+ curl -s -d "payload=$json" "$url" 1>/dev/null;
 
 }
 
-while getopts 'd:D:gGmMkKhH' OPTION; do
+while getopts d:D:gGmMkKhHsS OPTION; do
+ 
  case $OPTION in
  g | G )
 
@@ -213,14 +205,18 @@ while getopts 'd:D:gGmMkKhH' OPTION; do
  
  d | D )
 
- wait=$OPTARG;	
-<<<<<<< HEAD
- log "" "" "" "" "START" $$; 	
-=======
- log $FS_name $used $available $percent "START"; 	
->>>>>>> 0b47bd18ea97108dcfc462cb80d2b0ec297687ae
- Filesystem=`df -Pk | grep -v ^Filesystem | sed "s#%##g"`;
-        #for FS in "$Filesystem"; do
+ wait=$OPTARG;
+ 
+ if [ -f $prFile ]; then
+	 oldPrFile=`cat $prFile`;
+	 pkill $oldPrFile 2>/dev/null;
+ fi
+ 
+
+ log "" "" "" "" "START" $prPID "$wait";
+
+ while true; do
+  Filesystem=`df -Pk | grep -v ^Filesystem | sed "s#%##g"`;
 	while read FS; do
 		FS_name=`echo $FS | awk '{ print $1 }'`;
                 used=`echo $FS | awk '{ print $3 }'`;
@@ -228,11 +224,7 @@ while getopts 'd:D:gGmMkKhH' OPTION; do
                 percent=`echo $FS | awk '{ print $5 }'`;
 		if [[ $percent -ge $Def_urgent ]]; then
 			alert $SlackWebHook "Urgent" $FS_name $percent $available ":name_badge:";
-<<<<<<< HEAD
 		        log $FS_name $used $available $percent "URGENT"; 	
-=======
-		        log $FS_name $used $available $percent "ALERT"; 	
->>>>>>> 0b47bd18ea97108dcfc462cb80d2b0ec297687ae
 		elif [[ $percent -ge $Def_critical ]]; then
 			alert $SlackWebHook "Critical" $FS_name $percent $available ":bomb:";
 		        log $FS_name $used $available $percent "CRITICAL"; 	
@@ -240,13 +232,24 @@ while getopts 'd:D:gGmMkKhH' OPTION; do
 		        log $FS_name $used $available $percent "INFO"; 	
 
         done <<< "$Filesystem"
+ sleep $wait; 
+ done &
+ prPID=$!
+ echo $prPID > $prFile;
+ ;;
+
+ s | S )
+  log "" "" "" "" "STOP" "" "`whoami`";	
+  pkill -F $prFile; 2>/dev/null
+  rm -f $prFile;
+  exit 0; 
  ;;
  h | H )
 	usage
  ;;
 
- *)
- echo "ERROR: Use $0 -h for help";
- exit 1;
+ \? )
+  usage
+ ;;
  esac
 done
