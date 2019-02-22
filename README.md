@@ -1,6 +1,6 @@
 # BDH - Monitoring your Unix/Linux File Systems manually or automatic way.  
 
-BDH is an open source project developed using Shell Script and AWK languages allowing to the users a symple way to monitor Linux and Unix File Systems use through colors and visual messages. Besides that, the program allows the users run it in daemon mode and track each one FS usage history, configure threshold, and send alarm messages according to the need with no additional installation required.
+BDH is an open source project developed using Shell Script and AWK languages allowing to the users a symple way to monitor Linux and Unix File Systems usage through colors and visual messages. Besides that, the program allows the users to run BDH as daemon mode to track each one FS usage history, configure usage thresholds, and send alarm messages according to the need with no additional installation required.
 
 ## Getting Started
 
@@ -26,10 +26,10 @@ Choose one (usually is /usr/local/bin) and type:
 
 	$ cp bdh <path directory>
 
-DONE! bdh was successfully installed, use the command $ bdh -h to see the usage message.
+DONE! bdh was successfully installed, run the command $ bdh -h to get usage message.
 
 
-## How to use (manually mode)
+## How to use bdh (manually mode)
 
 In the manually mode, the user's can check the all FS use using terminal and receive use alarms on the screen.
 
@@ -46,7 +46,7 @@ The visual alarms on the screen are:
 	Red fill -> CRITICAL use according to threshold.
 	Flashing -> URGENT use according to threshold.
 	
-## How to use (Automatic mode)
+## How to use bdh (Automatic mode)
 
 In the automatic mode, bdh runs as daemon and monitore the FS automatically through previous specified periodic time (in seconds). When one or more FS reach to CRITICAL or URGENT threshold, an alarm will sent to SLACK using incoming WebHook messages app.
 
@@ -62,7 +62,7 @@ To STOP bdh started as automatic (daemon) mode before, type in the systen termin
 
 When bdh starts in daemon mode, a log file named bdh_<timestamp>.log is created in a directory previously configured (see more in "how to configure bdh" topic to get more informations).
 
-Basically the information displayed in bdh logfile are about START/STOP process, FS use in Kb, and each FS percentage of use as follows below:
+Basically the information displayed in bdh logfile are about START/STOP process, each FS usage in Kb, and percentage as follows below:
 
 	$cat /tmp/bdh_021819.log
 	START  |  02/18/19-23:56:33 | Starting process in Deamon mode | PID:  9282 INTERVAL: 3600 | logFile: /tmp/bdh_021819.log
@@ -76,13 +76,13 @@ If the user configures WebHook for Slack to receive HTTP requests (previous expl
 
 ## How to configure bdh
 
-To configure thresholds, open bdh script using a text editor your choice and replace the lines below by the values you need (remember, these values are in percent. E.g 70 means 70% of use). 
+To configure thresholds, open bdh script using a text editor your choice and replace the lines below by the values you need (remember, these values are in percent. E.g 70 means 70% of usage). 
 
 	#set alarm thresholds here:                                   
 
-	Def_major="70"; #Change "70" for the value that you want for MAJOR threshold.
-	Def_critical="85"; #Change "85" for the value that you want CRITICAL threshold.
-	Def_urgent="95"; #Change "95" for the value that you want URGENT threshold.
+	Def_major="70"; #Set value that you want for the FS usage MAJOR threshold.
+	Def_critical="85"; #Set value that you want for the FS usage CRITICAL threshold.
+	Def_urgent="95"; #Set value that you want for the FS usage URGENT threshold.
 	
 * This configuration is valid for both alerts, manually and automatic mode.	
 
