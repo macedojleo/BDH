@@ -48,13 +48,13 @@ The visual alarms on the screen are:
 	
 ## How to use (Automatic mode)
 
-In the automatic mode, bdh runs in daemon mode and monitore the FS automatically through previous specified periodic time (in seconds). When one or more FS reach to CRITICAL or URGENT threshold, an alarm is sent to SLACK using incoming WebHook messages app.
+In the automatic mode, bdh runs as daemon and monitore the FS automatically through previous specified periodic time (in seconds). When one or more FS reach to CRITICAL or URGENT threshold, an alarm will sent to SLACK using incoming WebHook messages app.
 
-To START bdh in automatic (daemon) mode, type in system terminal
+To START bdh as automatic (daemon) mode, type in the system terminal:
 
 	$ bdh -d or bdh -D (interval in seconds) #eg. bdg -d 60 -> bdh check all FS use every minute (60 seconds).
 
-To STOP bdh in automatic (daemon) mode, type in systen terminal:
+To STOP bdh started as automatic (daemon) mode before, type in the systen terminal:
 
 	$ bdh -s or bdh -S
 	
@@ -97,9 +97,9 @@ To change the directory where bdh will write the log file, change the value of t
 	
 * This variable is set up into the log function.
 
-## Authors
+## Author
 
-* **Leonardo Macedo** - *Linux SYSADM, IT Consultant and Shell script developer* - macedojleo@gmail.com
+* **Leonardo Macedo** - *Linux SYSADM, IT Consultant. DevOps, Python and Shell script developer* - macedojleo@gmail.com
 
 If you like this project, please mark the star! I will be very grateful! :)
 
