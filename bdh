@@ -91,7 +91,6 @@ while getopts d:D:gGmMkKhHsS OPTION; do
  g | G )
 
         Filesystem=`df -Pk | grep -v ^Filesystem | sed "s#%##g"`;
-
         for FS in "$Filesystem"; do
 		echo "$FS" | awk -v THR_urg="$Def_urgent" -v  THR_cri="$Def_critical" -v THR_maj="$Def_major"  'BEGIN {
                                         format_header="%-50s %-10s %-12s %-15s %-8s %-8s\n"
@@ -105,9 +104,9 @@ while getopts d:D:gGmMkKhHsS OPTION; do
 					total=$2/1024/1024;
                                         used=$3/1024/1024;
                                         available=$4/1024;
-                                        F_total=sprintf("%.0f", total);
-                                        F_used=sprintf("%.0f", used);
-                                        F_available=sprintf("%.0f", available);
+                                        F_total=sprintf("%.3f", total);
+                                        F_used=sprintf("%.3f", used);
+                                        F_available=sprintf("%.3f", available);
 
                                         format="%-50s %-10s %-12s %-15s %-8s %-8s\n";
                                         urgent="\033[5;31;1m" format "\033[0m";
@@ -144,9 +143,9 @@ while getopts d:D:gGmMkKhHsS OPTION; do
                                         total=$2/1024;
                                         used=$3/1024;
                                         available=$4/1024;
-                                        F_total=sprintf("%.0f", total);
-                                        F_used=sprintf("%.0f", used);
-                                        F_available=sprintf("%.0f", available);
+                                        F_total=sprintf("%.2f", total);
+                                        F_used=sprintf("%.2f", used);
+                                        F_available=sprintf("%.2f", available);
 
                                         format="%-50s %-10s %-12s %-15s %-8s %-8s\n";
                                         urgent="\033[5;31;1m" format "\033[0m";
