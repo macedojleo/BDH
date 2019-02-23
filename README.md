@@ -46,7 +46,7 @@ The visual alarms on the screen are:
 	Red fill -> The FS reached to MAJOR usage according to the threshold configurations.
 	Flashing -> The FS reached to MAJOR usage according to the threshold configurations.
 	
-![Alt text](master/docs/sample.gif?raw=true "Title")
+![Alt text](https://github.com/macedojleo/BDH/blob/master/docs/sample.gif?raw=true "Alarms")
 	
 ## How to use bdh (Automatic mode)
 
