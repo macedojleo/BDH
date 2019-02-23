@@ -93,7 +93,7 @@ while getopts d:D:gGmMkKhHsS OPTION; do
         Filesystem=`df -Pk | grep -v ^Filesystem | sed "s#%##g"`;
         for FS in "$Filesystem"; do
 		echo "$FS" | awk -v THR_urg="$Def_urgent" -v  THR_cri="$Def_critical" -v THR_maj="$Def_major"  'BEGIN {
-                                        format_header="%-50s %-10s %-12s %-15s %-8s %-8s\n"
+                                        format_header="%-40s %-20s %-20s %-15s %-8s %-8s\n"
                                         use_format="";
 					metricType="Gb";
                                         printf(format_header, "MOUNT POINT", "TOTAL", "USED", "AVAILABLE", "IN USE", "FS");
@@ -108,7 +108,7 @@ while getopts d:D:gGmMkKhHsS OPTION; do
                                         F_used=sprintf("%.3f", used);
                                         F_available=sprintf("%.3f", available);
 
-                                        format="%-50s %-10s %-12s %-15s %-8s %-8s\n";
+                                        format="%-40s %-20s %-20s %-15s %-8s %-8s\n";
                                         urgent="\033[5;31;1m" format "\033[0m";
                                         critical="\033[31;1m" format "\033[0m";
                                         major="\033[33;1m" format "\033[0m";
@@ -132,7 +132,7 @@ while getopts d:D:gGmMkKhHsS OPTION; do
 
         for FS in "$Filesystem"; do
 		echo "$FS" | awk -v THR_urg="$Def_urgent" -v  THR_cri="$Def_critical" -v THR_maj="$Def_major"  'BEGIN {
-                                        format_header="%-50s %-10s %-12s %-15s %-8s %-8s\n"
+                                        format_header="%-40s %-20s %-20s %-15s %-8s %-8s\n"
                                         use_format="";
 					metricType="Mb"
                                         printf(format_header, "MOUNT POINT", "TOTAL", "USED", "AVAILABLE", "IN USE", "FS");
@@ -147,7 +147,7 @@ while getopts d:D:gGmMkKhHsS OPTION; do
                                         F_used=sprintf("%.2f", used);
                                         F_available=sprintf("%.2f", available);
 
-                                        format="%-50s %-10s %-12s %-15s %-8s %-8s\n";
+                                        format="%-40s %-20s %-20s %-15s %-8s %-8s\n";
                                         urgent="\033[5;31;1m" format "\033[0m";
                                         critical="\033[31;1m" format "\033[0m";
                                         major="\033[33;1m" format "\033[0m";
@@ -170,7 +170,7 @@ while getopts d:D:gGmMkKhHsS OPTION; do
         for FS in "$Filesystem"; do
 
                 echo "$FS" | awk -v THR_urg="$Def_urgent" -v  THR_cri="$Def_critical" -v THR_maj="$Def_major" 'BEGIN {
-                                        format_header="%-50s %-10s %-12s %-15s %-8s %-8s\n"
+                                        format_header="%-40s %-20s %-20s %-15s %-8s %-8s\n"
                                         use_format="";
 					metricType="Kb"
                                         printf(format_header, "MOUNT POINT", "TOTAL", "USED", "AVAILABLE", "IN USE", "FS");
@@ -185,7 +185,7 @@ while getopts d:D:gGmMkKhHsS OPTION; do
                                         F_used=sprintf("%.0f", used);
                                         F_available=sprintf("%.0f", available);
 
-                                        format="%-50s %-15s %-12s %-18s %-8s %-8s\n";
+                                        format="%-40s %-20s %-20s %-15s %-8s %-8s\n";
                                         urgent="\033[5;31;1m" format "\033[0m";
                                         critical="\033[31;1m" format "\033[0m";
                                         major="\033[33;1m" format "\033[0m";
