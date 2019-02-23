@@ -43,14 +43,16 @@ The visual alarms on the screen are:
 	
 	White fill -> The FS usage is normal according to the thresholds config.
 	Yellow fill -> The FS reached to MAJOR usage according to the threshold configurations.
-	Red fill -> The FS reached to MAJOR usage according to the threshold configurations.
-	Flashing -> The FS reached to MAJOR usage according to the threshold configurations.
+	Red fill -> The FS reached to CRITICAL usage according to the threshold configurations.
+	Flashing -> The FS reached to URGENT usage according to the threshold configurations.
 	
 ![Alt text](https://github.com/macedojleo/BDH/blob/master/docs/sample.gif)
 	
 ## How to use bdh (Automatic mode)
 
 In the automatic mode, bdh runs as daemon and monitore the FS automatically through previous specified periodic time (in seconds). When one or more FS reach to CRITICAL or URGENT threshold, an alarm will sent to SLACK using incoming WebHook messages app.
+
+![Alt text](https://github.com/macedojleo/BDH/blob/master/docs/sSlackExampleMessages.png)
 
 To START bdh as automatic (daemon) mode, type in the system terminal:
 
@@ -60,6 +62,14 @@ To STOP bdh started as automatic (daemon) mode before, type in the systen termin
 
 	$ bdh -s or bdh -S
 	
+Example of critical alarm message sent to Slack:
+
+![Alt text](https://github.com/macedojleo/BDH/blob/master/docs/slackCriticalMessage.png)
+
+Example of urgent alarm message sent to Slack:
+
+![Alt text](https://github.com/macedojleo/BDH/blob/master/docs/slackUrgentMessage.png)
+
 ## Log file (Only for Automatic mode)
 
 When bdh starts in daemon mode, a log file named bdh_<timestamp>.log is created in a directory previously configured (see more in "how to configure bdh" topic to get more informations).
@@ -90,7 +100,7 @@ To configure thresholds, open bdh script using a text editor your choice and rep
 
 To configure WebHook URL to allow Slack receives messages sent by bdh, change the value of variable below:
 
-		SlackWebHook="INSERT YOUR WEBHOOK URL HERE"
+	SlackWebHook="INSERT YOUR WEBHOOK URL HERE"
 
 To change the directory where bdh will write the log file, change the value of the variable below:
 
