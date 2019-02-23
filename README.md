@@ -52,7 +52,7 @@ The visual alarms on the screen are:
 
 In the automatic mode, bdh runs as daemon and monitore the FS automatically through previous specified periodic time (in seconds). When one or more FS reach to CRITICAL or URGENT threshold, an alarm will sent to SLACK using incoming WebHook messages app.
 
-![Alt text](https://github.com/macedojleo/BDH/blob/master/docs/sSlackExampleMessages.png)
+![Alt text](https://github.com/macedojleo/BDH/blob/master/docs/SlackExampleMessages.png)
 
 To START bdh as automatic (daemon) mode, type in the system terminal:
 
@@ -62,11 +62,11 @@ To STOP bdh started as automatic (daemon) mode before, type in the systen termin
 
 	$ bdh -s or bdh -S
 	
-Example of critical alarm message sent to Slack:
+Example of CRITICAL alarm message sent to some slack #CHANNEL by bdh -d process:
 
 ![Alt text](https://github.com/macedojleo/BDH/blob/master/docs/slackCriticalMessage.png)
 
-Example of urgent alarm message sent to Slack:
+Example of URGENT alarm message sent to some slack #CHANNEL by bdh -d process:
 
 ![Alt text](https://github.com/macedojleo/BDH/blob/master/docs/slackUrgentMessage.png)
 
@@ -81,14 +81,14 @@ Basically the information displayed in bdh logfile are about START/STOP process,
 	INFO  |  02/19/19-13:33:56 | FS: tmpfs | Used: 32 kb | Free: 782368 kb | 1%
 	CRITICAL  |  02/19/19-15:23:09 | FS: /dev/loop5 | Used: 80 kb | Free: 20 kb | 80%
 	URGENT  |  02/19/19-15:23:09 | FS: /dev/loop8 | Used: 100 kb | Free: 0 kb | 100%
-	STOP  |  02/19/19-15:23:10 | Process stoped byas  USER_NAME
+	STOP  |  02/19/19-15:23:10 | Process stoped by LEONARDO MACEDO
  
-If the user configures WebHook for Slack to receive HTTP requests (previous explained in Prerequisites topic), a Slack channel will received messages for CRITICAL and URGENT thresholds reached by File Systems. 
+If the user configures WebHook for Slack to receive HTTP requests (previous explained in Prerequisites topic), a Slack channel will received messages sent by bdh -d process for CRITICAL and URGENT usage thresholds reached by File Systems. 
 	
 
 ## How to configure bdh
 
-To configure thresholds, open bdh script using a text editor your choice and replace the lines below by the values you need (remember, these values are in percent. E.g 70 means 70% of usage). 
+To configure thresholds, open bdh script using a text editor your choice and replace the lines below by the values you prefer (remember that all these values were seted in percent format. E.g the number "70" means "70%" of usage). 
 
 	#set alarm thresholds here:                                   
 
@@ -96,13 +96,13 @@ To configure thresholds, open bdh script using a text editor your choice and rep
 	Def_critical="85"; #Set value that you want for the FS usage CRITICAL threshold.
 	Def_urgent="95"; #Set value that you want for the FS usage URGENT threshold.
 	
-* This configuration is valid for both alerts, manually and automatic mode.	
+*PS: This configuration is valid for both, manually and automatic modes.	
 
-To configure WebHook URL to allow Slack receives messages sent by bdh, change the value of variable below:
+To configure WebHook URL to allow Slack receives messages sent by bdh process, change variable value below setting URL Webhook:
 
 	SlackWebHook="INSERT YOUR WEBHOOK URL HERE"
 
-To change the directory where bdh will write the log file, change the value of the variable below:
+To change the directory where bdh will write the log file, change the variable value below:
 
 	#Change here logdir (log will be generated only in daemon mode).
 	logdir="/tmp"
