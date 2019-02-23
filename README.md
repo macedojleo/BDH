@@ -88,7 +88,7 @@ If the user configures WebHook for Slack to receive HTTP requests (previous expl
 
 ## How to configure bdh
 
-To configure thresholds, open bdh script using a text editor your choice and replace the lines below by the values you prefer (remember that all these values were seted in percent format. E.g the number "70" means "70%" of usage). 
+To configure thresholds, open bdh script using a text editor your choice and replace the lines below by the values you prefer Remember: All these values were setted up using percent format. (e.g. the number "70" means "70%" of FS usage). 
 
 	#set alarm thresholds here:                                   
 
@@ -107,7 +107,7 @@ To change the directory where bdh will write the log file, change the variable v
 	#Change here logdir (log will be generated only in daemon mode).
 	logdir="/tmp"
 	
-* This variable is set up into the log function.
+* This variable must be set up into the log function.
 
 ## Author
 
