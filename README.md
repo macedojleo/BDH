@@ -41,10 +41,12 @@ The commands and their options are:
 
 The visual alarms on the screen are:
 	
-	White fill -> NORMAL use according to threshold.
-	Yellow fill -> MAJOR use according to threshold.
-	Red fill -> CRITICAL use according to threshold.
-	Flashing -> URGENT use according to threshold.
+	White fill -> The FS usage is normal according to the thresholds config.
+	Yellow fill -> The FS reached to MAJOR usage according to the threshold configurations.
+	Red fill -> The FS reached to MAJOR usage according to the threshold configurations.
+	Flashing -> The FS reached to MAJOR usage according to the threshold configurations.
+	
+	![Alt text](docs/sample.gif?raw=true "Screen alarms")
 	
 ## How to use bdh (Automatic mode)
 
