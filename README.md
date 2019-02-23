@@ -1,4 +1,4 @@
-# BDH - Monitoring your Unix/Linux File Systems manually or automatic way.  
+# BDH - Monitoring your Unix/Linux File Systems manually or automatically using Slack + Webhook APP.  
 
 BDH is an open source project developed using Shell Script and AWK languages allowing to the users a symple way to monitor Linux and Unix File Systems usage through colors and visual messages. Besides that, the program allows the users to run BDH as daemon mode to track each one FS usage history, configure usage thresholds, and send alarm messages according to the need with no additional installation required.
 
