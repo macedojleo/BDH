@@ -39,9 +39,9 @@ The commands and their options are:
 	$ bdh -m or $ bdh -M show all FS as Mb values.
 	$ bdh -k or $ bdh -K show all FS as Kb values.
 
-The visual alarms on the screen are:
+The visual alarms on the screen mean the following:
 	
-	White fill -> The FS usage is normal according to the thresholds config.
+	White fill -> The FS usage is NORMAL according to the thresholds configurations.
 	Yellow fill -> The FS reached to MAJOR usage according to the threshold configurations.
 	Red fill -> The FS reached to CRITICAL usage according to the threshold configurations.
 	Flashing -> The FS reached to URGENT usage according to the threshold configurations.
