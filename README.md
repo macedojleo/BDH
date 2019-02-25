@@ -1,16 +1,38 @@
-# BDH - Monitoring your Unix/Linux File Systems manually or automatically using Slack + Webhook APP.  
+# [BDH - MONITORING UNIX/LINUX FILE SYSTEMS MANUALLY OR AUTOMATICALLY WAY](#intro)  
 
 BDH is an open source project developed using Shell Script and AWK languages allowing to the users a symple way to monitor Linux and Unix File Systems usage through colors and visual messages. Besides that, the program allows the users to run BDH as daemon mode to track each one FS usage history, configure usage thresholds, and send alarm messages according to the need with no additional installation required.
 
-## Getting Started
+Table of contents
+=================
+
+<!--ts-->
+   * [BDH - MONITORING UNIX/LINUX FILE SYSTEMS MANUALLY OR AUTOMATICALLY WAY](#intro)	
+   * [Getting Started](#Getting Started)
+   * [Prerequisites](#prerequisites)
+   * [Installing](#installing)
+      * [STDIN](#stdin)
+      * [Local files](#local-files)
+      * [Remote files](#remote-files)
+      * [Multiple files](#multiple-files)
+      * [Combo](#combo)
+      * [Auto insert and update TOC](#auto-insert-and-update-toc)
+      * [Github token](#github-token)
+   * [How to use bdh (manually mode)](#manually)
+   * [How to use bdh (Automatic mode)](#automatic)
+   * [Log file (Only for Automatic mode)](#log)
+   * [Author](#author)
+   
+<!--te-->
+
+## [Getting Started](#getting-started)
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
+### [Prerequisites](#prerequisites)
 
-BDH needs Linux or Unix OS with BASH 4.1 (or higher), internet connection (to send alert messages), and a SLACK account with WebHook app installed to receive these messages. For further information about webhook app see https://api.slack.com/incoming-webhooks  
+BDH needs Linux or Unix OS with BASH 4.1 (or higher), internet connection (to send alert messages), and a SLACK account with WebHook app installed. For further information to install Webhook app at Slack and how to generate HTTPS URL click [here](https://api.slack.com/incoming-webhooks)  
 
-### Installing
+### [Installing](#installing)
 
 Download bdh file and copy it in any directory which is in the system PATH.
 
@@ -29,7 +51,7 @@ Choose one (usually is /usr/local/bin) and type:
 DONE! bdh was successfully installed, run the command $ bdh -h to get usage message.
 
 
-## How to use bdh (manually mode)
+## [How to use bdh (manually mode)](#manually)
 
 In the manually mode, the user's can check the all FS use using terminal and receive use alarms on the screen.
 
@@ -48,7 +70,7 @@ The visual alarms on the screen means as follows:
 	
 ![Sample](/docs/sample.gif)
 	
-## How to use bdh (Automatic mode)
+## [How to use bdh (Automatic mode)](#automatic)
 
 In the automatic mode, bdh runs as daemon and monitore the FS automatically through previous specified periodic time (in seconds). When one or more FS reach to CRITICAL or URGENT threshold, an alarm will sent to SLACK using incoming WebHook messages app.
 
@@ -70,7 +92,7 @@ Example of URGENT alarm message sent to some slack #CHANNEL by bdh -d process:
 
 ![SlackUrgent](/docs/slackUrgentMessage.png)
 
-## Log file (Only for Automatic mode)
+## [Log file (Only for Automatic mode)](#log)
 
 When bdh starts in daemon mode, a log file named bdh_<timestamp>.log is created in a directory previously configured (see more in "how to configure bdh" topic to get more informations).
 
@@ -86,7 +108,7 @@ Basically the information displayed in bdh logfile are about START/STOP process,
 If the user configures WebHook for Slack to receive HTTP requests (previous explained in Prerequisites topic), a Slack channel will received messages sent by bdh -d process for CRITICAL and URGENT usage thresholds reached by File Systems. 
 	
 
-## How to configure bdh
+## [How to configure bdh](#configure)
 
 To configure thresholds, open bdh script using a text editor your choice and replace the lines below by the values you prefer Remember: All these values were setted up using percent format. (e.g. the number "70" means "70%" of FS usage). 
 
@@ -109,9 +131,7 @@ To change the directory where bdh will write the log file, change the variable v
 	
 * This variable must be set up into the log function.
 
-## Author
+## [Author](#author)
 
 * **Leonardo Macedo** - *Linux SYSADM, IT Consultant. DevOps, Python and Shell script developer* - macedojleo@gmail.com
-
-If you like this project, please mark the star! I will be very grateful! :)
 
