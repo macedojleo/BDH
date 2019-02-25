@@ -46,13 +46,13 @@ The visual alarms on the screen means as follows:
 	Red fill -> The FS reached to CRITICAL usage according to the threshold configurations.
 	Flashing -> The FS reached to URGENT usage according to the threshold configurations.
 	
-![Alt text](https://github.com/macedojleo/BDH/blob/master/docs/sample.gif)
+![Sample](/docs/sample.gif)
 	
 ## How to use bdh (Automatic mode)
 
 In the automatic mode, bdh runs as daemon and monitore the FS automatically through previous specified periodic time (in seconds). When one or more FS reach to CRITICAL or URGENT threshold, an alarm will sent to SLACK using incoming WebHook messages app.
 
-![Alt text](https://github.com/macedojleo/BDH/blob/master/docs/SlackExampleMessages.png)
+![SlackMessages](/docs/SlackExampleMessages.png)
 
 To START bdh as automatic (daemon) mode, type in the system terminal:
 
@@ -64,11 +64,11 @@ To STOP bdh started as automatic (daemon) mode before, type in the systen termin
 	
 Example of CRITICAL alarm message sent to some slack #CHANNEL by bdh -d process:
 
-![Alt text](https://github.com/macedojleo/BDH/blob/master/docs/slackCriticalMessage.png)
+![SlackCritical](/docs/slackCriticalMessage.png)
 
 Example of URGENT alarm message sent to some slack #CHANNEL by bdh -d process:
 
-![Alt text](https://github.com/macedojleo/BDH/blob/master/docs/slackUrgentMessage.png)
+![SlackUrgent](/docs/slackUrgentMessage.png)
 
 ## Log file (Only for Automatic mode)
 
