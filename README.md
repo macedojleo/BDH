@@ -6,13 +6,13 @@ Table of contents
 =================
 
 <!--ts-->
-   * [INTRO](#monitoring-unixlinux-file-systems-manually-or-automatically-way)	
+   * [INTRO](#bdh---monitoring-unixlinux-file-systems-manually-or-automatically-way)	
    * [Getting Started](#getting-started)
    * [Prerequisites](#prerequisites)
    * [Installing](#installing)
-   * [How to use bdh in manually mode](#manually)
-   * [How to use bdh in automatic mode](#automatic)
-   * [Log file](#log)
+   * [How to use bdh in manually mode](#how-to-use-bdh-in-manually-mode)
+   * [How to use bdh in automatic mode](#how-to-use-bdh-in-automatic-mode)
+   * [Log file](#log-file)
    * [Author](#author)
 <!--te-->
 
