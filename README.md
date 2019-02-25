@@ -7,7 +7,7 @@ Table of contents
 
 <!--ts-->
    * [INTRO](#intro)	
-   * [Getting Started](#Getting Started)
+   * [Getting Started](#getting-started)
    * [Prerequisites](#prerequisites)
    * [Installing](#installing)
    * [How to use bdh in manually mode](#manually)
@@ -63,7 +63,7 @@ The visual alarms on the screen means as follows:
 	
 ![Sample](/docs/sample.gif)
 	
-## [How to use bdh (Automatic mode)](#automatic)
+## [How to use bdh (Automatic mode) ](#automatic)
 
 In the automatic mode, bdh runs as daemon and monitore the FS automatically through previous specified periodic time (in seconds). When one or more FS reach to CRITICAL or URGENT threshold, an alarm will sent to SLACK using incoming WebHook messages app.
 
@@ -85,7 +85,7 @@ Example of URGENT alarm message sent to some slack #CHANNEL by bdh -d process:
 
 ![SlackUrgent](/docs/slackUrgentMessage.png)
 
-## [Log file (Only for Automatic mode)](#log)
+## [Log file (Only for Automatic mode) ](#log)
 
 When bdh starts in daemon mode, a log file named bdh_<timestamp>.log is created in a directory previously configured (see more in "how to configure bdh" topic to get more informations).
 
