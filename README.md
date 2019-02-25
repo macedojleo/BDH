@@ -97,7 +97,7 @@ Basically the information displayed in bdh logfile are about START/STOP process,
 	URGENT  |  02/19/19-15:23:09 | FS: /dev/loop8 | Used: 100 kb | Free: 0 kb | 100%
 	STOP  |  02/19/19-15:23:10 | Process stoped by LEONARDO MACEDO
  
-If the user configures WebHook for Slack to receive HTTP requests (previous explained in [Prerequisites](#prerequisites) topic), a Slack channel will received messages sent by bdh -d process for CRITICAL and URGENT usage thresholds reached by File Systems. 
+If the user configures WebHook for Slack to receive HTTP requests (previous explained in [prerequisites topic](#prerequisites)), a Slack channel choosed by user will be able to show alert CRITICAL and URGENT thresholds messages sent by bdh -d process. 
 	
 
 ## [How to configure bdh](#configure)
