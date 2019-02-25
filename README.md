@@ -6,7 +6,7 @@ Table of contents
 =================
 
 <!--ts-->
-   * [BDH - MONITORING UNIX/LINUX FILE SYSTEMS MANUALLY OR AUTOMATICALLY WAY](#intro)	
+   * [INTRO](#intro)	
    * [Getting Started](#Getting Started)
    * [Prerequisites](#prerequisites)
    * [Installing](#installing)
