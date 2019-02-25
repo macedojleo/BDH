@@ -7,8 +7,8 @@ Table of contents
 
 <!--ts-->
    * [INTRO](#bdh---monitoring-unixlinux-file-systems-manually-or-automatically-way)	
-   * [Getting Started](#getting-started)
-   * [Prerequisites](#prerequisites)
+   	* [Getting Started](#getting-started)
+   	* [Prerequisites](#prerequisites)
    * [Installing](#installing)
    * [How to use bdh in manually mode](#how-to-use-bdh-in-manually-mode)
    * [How to use bdh in automatic mode](#how-to-use-bdh-in-automatic-mode)
@@ -97,7 +97,7 @@ Basically the information displayed in bdh logfile are about START/STOP process,
 	URGENT  |  02/19/19-15:23:09 | FS: /dev/loop8 | Used: 100 kb | Free: 0 kb | 100%
 	STOP  |  02/19/19-15:23:10 | Process stoped by LEONARDO MACEDO
  
-If the user configures WebHook for Slack to receive HTTP requests (previous explained in Prerequisites topic), a Slack channel will received messages sent by bdh -d process for CRITICAL and URGENT usage thresholds reached by File Systems. 
+If the user configures WebHook for Slack to receive HTTP requests (previous explained in [Prerequisites](#prerequisites) topic), a Slack channel will received messages sent by bdh -d process for CRITICAL and URGENT usage thresholds reached by File Systems. 
 	
 
 ## [How to configure bdh](#configure)
@@ -125,5 +125,5 @@ To change the directory where bdh will write the log file, change the variable v
 
 ## [Author](#author)
 
-* **Leonardo Macedo** - *Linux SYSADM, IT Consultant. DevOps, Python and Shell script developer* - macedojleo@gmail.com
+* **Leonardo Macedo** - *Linux SYSADM, IT Consultant. DevOps, Python and Shell script developer* | <macedojleo@gmail.com> | @macedojleo
 
