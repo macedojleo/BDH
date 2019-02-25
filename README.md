@@ -7,8 +7,8 @@ Table of contents
 
 <!--ts-->
    * [INTRO](#bdh---monitoring-unixlinux-file-systems-manually-or-automatically-way)	
-   	* [Getting Started](#getting-started)
-   	* [Prerequisites](#prerequisites)
+   	** [Getting Started](#getting-started)
+   	** [Prerequisites](#prerequisites)
    * [Installing](#installing)
    * [How to use bdh in manually mode](#how-to-use-bdh-in-manually-mode)
    * [How to use bdh in automatic mode](#how-to-use-bdh-in-automatic-mode)
