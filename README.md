@@ -125,5 +125,5 @@ To change the directory where bdh will write the log file, change the variable v
 
 ## [Author](#author)
 
-* **Leonardo Macedo** - *Linux SYSADM, IT Consultant. DevOps, Python and Shell script developer*
-* Let me know if you have some problem to use BDH or just find out a BUG sending an e-mail to <macedojleo@gmail.com> or <up201700418@fe.up.pt> 
+* **Leonardo Macedo** - *Linux SYSADM, IT Consultant, DevOps - Operations, Python and Shell script developer*
+* Let me know if you have some problem to use BDH or just find out a BUG sending an e-mail to <macedojleo@gmail.com>
