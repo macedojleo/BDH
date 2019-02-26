@@ -90,11 +90,11 @@ Once started in the Daemon mode, the better and safe way to STOP bdh process is 
 	
 ![SlackCritical](/docs/slackCriticalMessage.png)
 
-Example of CRITICAL alarm message identify by a BOMB icon sent to SLACK #CHANNEL by bdh -d process:
+Example of CRITICAL alarm message identify by a :bomb: icon sent to SLACK #CHANNEL by bdh -d process:
 
 ![SlackUrgent](/docs/slackUrgentMessage.png)
 
-Example of URGENT alarm message isentify by a FIRE icon sent to SLACK #CHANNEL by bdh -d process:
+Example of URGENT alarm message isentify by a :fire: icon sent to SLACK #CHANNEL by bdh -d process:
 
 ## [Log file](#log)
 
