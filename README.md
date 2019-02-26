@@ -1,6 +1,6 @@
 # BDH - MONITORING UNIX/LINUX FILE SYSTEMS MANUALLY OR AUTOMATICALLY WAY
 
-BDH is an open source project developed using Shell Script and AWK languages allowing to the users a symple way to monitor Linux and Unix File Systems usage through colors and visual messages. Besides that, the program allows the users to run BDH as daemon mode to track each one FS usage history, configure usage thresholds, and send alarm messages according to the need with no additional installation required.
+**BDH** is an open source project developed using Shell Script and AWK languages that allowing Linux and Unix users a symple way to monitor their File Systems(FS) through visual messages with colors and effects to classify among NORMAL, MAJOR, CRITICAL or URGENT usage thresholds. But the main functionality of BDH is the possibility to configure the program to **automatically send alarms messages of the usage of each FS** through Slack and Webhook with no additional programs or libraries required.
 
 Table of contents
 =================
@@ -44,7 +44,7 @@ Give eXecution permission to the file typing in the command line:
 	
 	$ chmod +x <path directory>/bdh
 	
-And DONE! bdh was successfully installed! 
+And **DONE**! bdh was successfully installed! 
 
 
 To confirm if everything is working well, use bdh help command to see usage message.
@@ -70,7 +70,7 @@ Depending to the usage and thresholds set up for each file system, a different k
 	
 ![Sample](/docs/sample.gif)
 
-The GIF above shows the result of all visual alarm possibilities when bdh was used in manually mode.
+The animated image above shows the result of all visual alarm possibilities when bdh was ran in manually mode.
 	
 ## [How to use bdh in Automatic mode](#automatic)
 
@@ -84,17 +84,17 @@ To START bdh as deamon (automatic) mode, the user need to type the following com
 
 	$ bdh -d or bdh -D (interval in seconds) #eg. bdg -d 60 -> bdh check all FS use every minute (60 seconds).
 
-Once started in the Daemon mode, if the user wants to STOP bdh process is necessary to type the following command on the systen terminal:
+Once started in the Daemon mode, the better and safe way to STOP bdh process is typing the following command on the systen terminal:
 
 	$ bdh -s or bdh -S
 	
 ![SlackCritical](/docs/slackCriticalMessage.png)
 
-Example of CRITICAL alarm message sent to some slack #CHANNEL by bdh -d process:
+Example of CRITICAL alarm message identify by a BOMB icon sent to SLACK #CHANNEL by bdh -d process:
 
 ![SlackUrgent](/docs/slackUrgentMessage.png)
 
-Example of URGENT alarm message sent to some slack #CHANNEL by bdh -d process:
+Example of URGENT alarm message isentify by a FIRE icon sent to SLACK #CHANNEL by bdh -d process:
 
 ## [Log file](#log)
 
@@ -110,7 +110,7 @@ Basically the information displayed in bdh logfile are START time ( with Process
 	STOP  |  02/19/19-15:23:10 | Process stoped by LEONARDO MACEDO
 
 
-If Slack was set up to use WebHook APP and bdh was configured properly to send HTTP REQUESTS (see [prerequisites topic](#prerequisites) for further information), slack will start to receive CRITICAL and URGENT messages sent by bdh -d process. 
+If Slack was set up to use Webhook APP and bdh was configured properly to sent HTTP REQUESTS to Webhook APP URL (see [prerequisites topic](#prerequisites) for further information), slack will receive alarms from both thresholds: CRITICAL and URGENT sent by bdh -d process. 
 	
 
 ## [How to configure bdh](#configure)
