@@ -107,7 +107,7 @@ Basically the information displayed in bdh logfile are START time ( with Process
 	INFO  |  02/19/19-13:33:56 | FS: tmpfs | Used: 32 kb | Free: 782368 kb | 1%
 	CRITICAL  |  02/19/19-15:23:09 | FS: /dev/loop5 | Used: 80 kb | Free: 20 kb | 80%
 	URGENT  |  02/19/19-15:23:09 | FS: /dev/loop8 | Used: 100 kb | Free: 0 kb | 100%
-	STOP  |  02/19/19-15:23:10 | Process stoped by LEONARDO MACEDO
+	STOP  |  02/19/19-15:23:10 | Process stopped by LEONARDO MACEDO
 
 
 If Slack was set up to use Webhook APP and bdh was configured properly to sent HTTP REQUESTS to Webhook APP URL (see [prerequisites topic](#prerequisites) for further information), slack will receive alarms from both thresholds: CRITICAL and URGENT sent by bdh -d process. 
