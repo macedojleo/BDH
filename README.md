@@ -1,4 +1,4 @@
-# MONITORIZE AND GENERATE CUSTOM ALARM MESSAGES FOR UNIX OR LINUX FILESYSTEMS IN AN EASY WAY!
+# Mnonitorize and generate custom alarm messages for Unix and Linux Filesystems in an easy way!
 
 **BDH** is an open source project developed using Shell Script and AWK languages that allowing Linux and Unix users a symple way to monitor their File Systems(FS) through visual messages with colors and effects to classify among NORMAL, MAJOR, CRITICAL or URGENT usage thresholds. But the main functionality of BDH is the possibility to configure the program to **automatically send alarms messages of the usage of each FS** through Slack and Webhook with no additional programs or libraries required.
 
