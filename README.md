@@ -136,7 +136,7 @@ To change the directory where bdh will write the process log file, Open the bdh 
 
 	#Change here logdir (log will be generated only in daemon mode).
 	logdir="/tmp"
-* * * 
+
 ## [Author](#author)
 
 * **Leonardo Macedo** - *Unix/Linux Sysadm, IT Consultant, DevOps - Operations, Python, and Shell script*
