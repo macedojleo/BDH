@@ -127,7 +127,7 @@ To customize FS usage thresholds, open bdh script using a text editor your choic
 *PS: This setting will affect both: Manual and Automatic alerts.
 
 ### [Configure Webhook App for Slack]
-To configure WebHook to allow Slack receives HTTP REQUESTS sent by bdh process, change the variable value below setting URL Webhook you get when you ran the APP installation in [prerequisites topic](#prerequisites).
+To configure WebHook to allow Slack receives HTTP REQUESTS sent by bdh process, change the variable value below setting URL Webhook you got when install APP using the tutorial at [prerequisites topic](#prerequisites).
 
 	SlackWebHook="INSERT YOUR WEBHOOK URL HERE"
 
