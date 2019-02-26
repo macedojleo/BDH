@@ -6,7 +6,7 @@ Table of contents
 =================
 
 <!--ts-->
-   * [INTRO](#bdh---monitoring-unixlinux-file-systems-manually-or-automatically-way)	
+   * [Intro](#bdh---monitoring-unixlinux-file-systems-manually-or-automatically-way)	
    * [Getting Started](#getting-started)
    * [Prerequisites](#prerequisites)
    * [Installing](#installing)
@@ -26,69 +26,81 @@ BDH needs Linux or Unix OS with BASH 4.1 (or higher), internet connection (to se
 
 ### [Installing](#installing)
 
-Download bdh file and copy it in any directory which is in the system PATH.
+Download bdh file in [zip format](https://github.com/macedojleo/BDH/zipball/master) or [tar format](https://github.com/macedojleo/BDH/tarball/master), unzip, and move it to any directory which is in the system PATH.
 
-To see which directories were set up in the system PATH, type the follows in the system terminal:
+To see which directories were set up in the system PATH, type the command below using the system terminal:
 
 	$ echo $PATH
 
-The output will be similar of the following:
+The output will show the variable PATH content similar as follows:
 	
 	/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin
 
-Choose one (usually is /usr/local/bin) and type:
+Choose one of these directories to copy bdh file (usually is /usr/local/bin) type the following command line:
 
 	$ cp bdh <path directory>
 
-DONE! bdh was successfully installed, run the command $ bdh -h to get usage message.
+Give eXecution permission to the file typing in the command line:
+	
+	$ chmod +x <path directory>/bdh
+	
+And DONE! bdh was successfully installed! 
 
+
+To confirm if everything is working well, use bdh help command to see usage message.
+
+	$ bdh -h
 
 ## [How to use bdh in manually mode](#manually)
 
-In the manually mode, the user's can check the all FS use using terminal and receive use alarms on the screen.
+In the manually mode bdh shows all FS usage on the screen, printing NORMAL, MAJOR, CRITICAL, and URGENT alert messages through the colors and visual effects.
 
-The commands and their options are:
+The commands and their options to run bdh program in manually mode are:
 
-	$ bdh -g or $ bdh -G show all FS as Gb values.
-	$ bdh -m or $ bdh -M show all FS as Mb values.
-	$ bdh -k or $ bdh -K show all FS as Kb values.
+	$ bdh -g or $ bdh -G #Gb Format.
+	$ bdh -m or $ bdh -M #Mb Format.
+	$ bdh -k or $ bdh -K #Kb Format.
 
-The visual alarms on the screen means as follows:
+Depending to the usage and thresholds set up for each file system, a different kind of visual alarm will be displayed on the screen as follows:
 	
-	White fill -> The FS usage is NORMAL according to the thresholds configurations.
+	White fill -> The FS usage is less to NORMAL usage according to the thresholds configurations.
 	Yellow fill -> The FS reached to MAJOR usage according to the threshold configurations.
 	Red fill -> The FS reached to CRITICAL usage according to the threshold configurations.
 	Flashing -> The FS reached to URGENT usage according to the threshold configurations.
 	
 ![Sample](/docs/sample.gif)
+
+The GIF above shows the result of all visual alarm possibilities when bdh was used in manually mode.
 	
 ## [How to use bdh in Automatic mode](#automatic)
 
-In the automatic mode, bdh runs as daemon and monitore the FS automatically through previous specified periodic time (in seconds). When one or more FS reach to CRITICAL or URGENT threshold, an alarm will sent to SLACK using incoming WebHook messages app.
+On this mode bdh runs as daemon and monitore the FS automatically through intervall time option (in seconds) required to start the process. When one or more FS reach to CRITICAL or URGENT threshold, the user is notified through an alarm message sent to SLACK CHANNEL using incoming WebHook messages app.
 
 ![SlackMessages](/docs/SlackExampleMessages.png)
 
-To START bdh as automatic (daemon) mode, type in the system terminal:
+The image below shows an alert message sent to Slack by bdh.  
+
+To START bdh as deamon (automatic) mode, the user need to type the following command in the system terminal:
 
 	$ bdh -d or bdh -D (interval in seconds) #eg. bdg -d 60 -> bdh check all FS use every minute (60 seconds).
 
-To STOP bdh started as automatic (daemon) mode before, type in the systen terminal:
+Once started in the Daemon mode, if the user wants to STOP bdh process is necessary to type the following command on the systen terminal:
 
 	$ bdh -s or bdh -S
 	
-Example of CRITICAL alarm message sent to some slack #CHANNEL by bdh -d process:
-
 ![SlackCritical](/docs/slackCriticalMessage.png)
 
-Example of URGENT alarm message sent to some slack #CHANNEL by bdh -d process:
+Example of CRITICAL alarm message sent to some slack #CHANNEL by bdh -d process:
 
 ![SlackUrgent](/docs/slackUrgentMessage.png)
 
+Example of URGENT alarm message sent to some slack #CHANNEL by bdh -d process:
+
 ## [Log file](#log)
 
-When bdh starts in daemon mode (and only in daemon mode), a log file named bdh_<timestamp>.log is created in a directory previously configured (see more in "how to configure bdh" topic to get more informations).
+When bdh starts in daemon mode (and only in this mode), a log file named bdh_<timestamp>.log is generated. To set up the log directory where the log will be stored, see the next session [how to configure bdh](#configure) of this document.
 
-Basically the information displayed in bdh logfile are about START/STOP process, each FS usage in Kb, and percentage as follows below:
+Basically the information displayed in bdh logfile are START time ( with Process ID (PID), Interval time used, and logFile path), STOP time process (and which user performed that command), and important informations about FS usage like type, time, FS name, usage in Kb at that moment, free space and percent of usage.
 
 	$cat /tmp/bdh_021819.log
 	START  |  02/18/19-23:56:33 | Starting process in Deamon mode | PID:  9282 INTERVAL: 3600 | logFile: /tmp/bdh_021819.log
@@ -96,32 +108,34 @@ Basically the information displayed in bdh logfile are about START/STOP process,
 	CRITICAL  |  02/19/19-15:23:09 | FS: /dev/loop5 | Used: 80 kb | Free: 20 kb | 80%
 	URGENT  |  02/19/19-15:23:09 | FS: /dev/loop8 | Used: 100 kb | Free: 0 kb | 100%
 	STOP  |  02/19/19-15:23:10 | Process stoped by LEONARDO MACEDO
- 
-If the user configures WebHook for Slack to receive HTTP requests (previous explained in [prerequisites topic](#prerequisites)), a Slack channel choosed by user will be able to show alert CRITICAL and URGENT thresholds messages sent by bdh -d process. 
+
+
+If Slack was set up to use WebHook APP and bdh was configured properly to send HTTP REQUESTS (see [prerequisites topic](#prerequisites) for further information), slack will start to receive CRITICAL and URGENT messages sent by bdh -d process. 
 	
 
 ## [How to configure bdh](#configure)
 
-To configure thresholds, open bdh script using a text editor your choice and replace the lines below by the values you prefer Remember: All these values were setted up using percent format. (e.g. the number "70" means "70%" of FS usage). 
+### [Customize Thresholds]
+To customize FS usage thresholds, open bdh script using a text editor your choice and replace the lines below by the values you prefer Remember: All these values were set up using percent format. (e.g. the number "70" means "70%" of FS usage). 
 
-	#set alarm thresholds here:                                   
+	#set FS usage thresholds here:                                   
 
-	Def_major="70"; #Set value that you want for the FS usage MAJOR threshold.
-	Def_critical="85"; #Set value that you want for the FS usage CRITICAL threshold.
-	Def_urgent="95"; #Set value that you want for the FS usage URGENT threshold.
+	Def_major="70"; #Set value for MAJOR FS usage.
+	Def_critical="85"; #Set value for CRITICAL FS usage.
+	Def_urgent="95"; #Set value for URGENT FS usage.
 	
-*PS: This configuration is valid for both, manually and automatic modes.	
+*PS: This setting will affect both: Manual and Automatic alerts.
 
-To configure WebHook URL to allow Slack receives messages sent by bdh process, change variable value below setting URL Webhook:
+### [Configure Webhook App for Slack]
+To configure WebHook to allow Slack receives HTTP REQUESTS sent by bdh process, change the variable value below setting URL Webhook you get when you ran the APP installation in [prerequisites topic](#prerequisites).
 
 	SlackWebHook="INSERT YOUR WEBHOOK URL HERE"
 
-To change the directory where bdh will write the log file, change the variable value below:
+### [Change log Dir]
+To change the directory where bdh will write the process log file, Open the bdh script using a text editor you prefer, locate, and change the value of variable logdir as showing below:
 
 	#Change here logdir (log will be generated only in daemon mode).
 	logdir="/tmp"
-	
-* This variable must be set up into the log function.
 
 ## [Author](#author)
 
