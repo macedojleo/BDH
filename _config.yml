@@ -1,6 +1,6 @@
 theme: jekyll-theme-midnight
 title: [BDH by Leonardo Macedo]
-description: [Monitoring and monitorize Linux and Unix FS]
+description: [Monitoring Linux and Unix FS using Slack]
 show_downloads: true
 plugins:
   - jemoji
