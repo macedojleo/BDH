@@ -1,4 +1,6 @@
 theme: jekyll-theme-midnight
+title: [BDH by Leonardo Macedo]
+description: [Monitoring and monitorize Linux and Unix FS]
 show_downloads: true
 plugins:
   - jemoji
