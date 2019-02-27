@@ -140,4 +140,4 @@ To change the directory where bdh will write the process log file, Open the bdh 
 ## [Author](#author)
 
 * [Leonardo Macedo](https://www.linkedin.com/in/leonardo-macedo-96026a94/) - *MSc Software Engineering | Unix/Linux Sysadm, IT Consultant, DevOps Operations, Continuos Integration, Python, and Shell script*
-<p align="center"><a href="https://www.linkedin.com/in/leonardo-macedo-96026a94/">linkedin</a> <p align="center"><a href="mailto:macedojleo@gmail.com">mail</a>) <p align="center"><a href="https://github.com/macedojleo">github</a></p>
+<p align="center"><a href="https://www.linkedin.com/in/leonardo-macedo-96026a94/">linkedin</a> <a href="mailto:macedojleo@gmail.com">mail</a> <a href="https://github.com/macedojleo">github</a></p>
