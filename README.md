@@ -71,12 +71,11 @@ To start the BDH as a daemon process, you should use **- d** parameter and set t
 
 	$ bdh -d or bdh -D (interval in seconds) #eg. bdg -d 60 -> bdh will check the disks usage every minute (60 seconds).
 
-Once BDH started as a daemon process, it is recommended to STOP using **bdh -s** or **bdh -S**:
+To STOP BDH process use **bdh -s** or **bdh -S**:
 
 	# Stopping BDH deamon process
 	$ bdh -s 
 	
-
 
 ### Example of slack messages sent by BDH
 
