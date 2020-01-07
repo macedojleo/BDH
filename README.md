@@ -1,6 +1,6 @@
-# Monitorize and generate custom alarm messages for Unix and Linux Filesystems in an easy way!
+# Monitor the Linux and Unix disk usage using the command terminal and send customized alarm messages to SLACK. 
 
-**BDH** is an open source project developed using Shell Script and AWK languages that allowing Linux and Unix users a symple way to monitor their File Systems(FS) through visual messages with colors and effects to classify among NORMAL, MAJOR, CRITICAL or URGENT usage thresholds. But the main functionality of BDH is the possibility to configure the program to **automatically send alarms messages of the usage of each FS** through Slack and Webhook with no additional programs or libraries required.
+**BDH** allows you to monitor Linux and Unix disks usage classifing it as NORMAL, MAJOR, CRITICAL or URGENT thresholds through visual and customized mensages with **Slack**.
 
 Table of contents
 =================
@@ -18,42 +18,34 @@ Table of contents
 
 ## [Getting Started](#getting-started)
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+This document will explain to you how to get the BDH script using GIT clone or download the ZIP file and then proceed to instalation on your Linux or Unix Environment.
 
 ### [Prerequisites](#prerequisites)
 
-BDH needs Linux or Unix OS with BASH 4.1 (or higher), internet connection (to send alert messages), and a SLACK account with WebHook app installed. For further information to install Webhook app at Slack and how to generate HTTPS URL click [here](https://api.slack.com/incoming-webhooks)  
+- BASH 4.1 (or higher)
+- Internet connection (necessary to send alert messages)
+- Signed up to Slack and create Incoming Webhook. Read more [here](https://api.slack.com/incoming-webhooks)  
 
 ### [Installing](#installing)
 
-Download bdh file in [zip format](https://github.com/macedojleo/BDH/zipball/master) or [tar format](https://github.com/macedojleo/BDH/tarball/master), unzip, and move it to any directory which is in the system PATH.
+- Download bdh file in zip format [here](https://github.com/macedojleo/BDH/zipball/master) or in tar format [here](https://github.com/macedojleo/BDH/tarball/master). unzip, and move it to any directory which is in the system PATH.
 
-To see which directories were set up in the system PATH, type the command below using the system terminal:
+- Unzip it using unzip <file.zip> for zip file or tar -xvf <file.tar> for tar file
 
-	$ echo $PATH
+- Move BDH to any directory was set up on Linux or Unix PATH.
 
-The output will show the variable PATH content similar as follows:
-	
-	/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin
+- To see all directories were set up on PATH use the command **$ echo $PATH**
 
-Choose one of these directories to copy bdh file (usually is /usr/local/bin) type the following command line:
+- Check if everything is working well using the command **$ bdh -h**
 
-	$ cp bdh <path directory>
+## [BDH - Visual mode](#manually)
 
-Give eXecution permission to the file typing in the command line:
-	
-	$ chmod +x <path directory>/bdh
-	
-And **DONE**! bdh was successfully installed! 
+The BDH visual mode, displays the disk usage of all FS through the terminal (on the screen). It will "printing" on the terminal screen the following alerts for each FS depending of it usage and the thresholds configured previously:
 
-
-To confirm if everything is working well, use bdh help command to see usage message.
-
-	$ bdh -h
-
-## [How to use bdh in manually mode](#manually)
-
-In the manually mode bdh shows all FS usage on the screen, printing NORMAL, MAJOR, CRITICAL, and URGENT alert messages through the colors and visual effects.
+- NORMAL usage (white)
+- MAJOR usage (yellow)
+- CRITICAL usage (red)
+- URGENT usage (flashing)
 
 The commands and their options to run bdh program in manually mode are:
 
