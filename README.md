@@ -76,15 +76,20 @@ Once BDH started as a daemon process, it is recommended to STOP using **bdh -s**
 	# Stopping BDH deamon process
 	$ bdh -s 
 	
-![SlackCritical](/docs/slackCriticalMessage.png)
+
 
 ### Example of slack messages sent by BDH
 
 - **CRITICAL** alarm message is identified by a :bomb: icon:
+![SlackCritical](/docs/slackCriticalMessage.png)
+
+
+
+- **URGENT** alarm message  is identified by a :fire: icon:
 
 ![SlackUrgent](/docs/slackUrgentMessage.png)
 
-- **URGENT** alarm message  is identified by a :fire: icon:
+
 
 ## [Log file](#log)
 
