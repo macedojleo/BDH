@@ -1,13 +1,9 @@
-# Monitor the Linux and Unix disk usage using the command terminal and send customized alarm messages to SLACK. 
-
-**BDH** allows you to monitor Linux and Unix disks usage classifing it as NORMAL, MAJOR, CRITICAL or URGENT thresholds through visual and customized mensages with **Slack**.
+# Monitore Linux and Unix FS usage and send alarm messages to SLACK.
 
 Table of contents
 =================
 
 <!--ts-->
-   * [Intro](#bdh---monitoring-unixlinux-file-systems-manually-or-automatically-way)	
-   * [Getting Started](#getting-started)
    * [Prerequisites](#prerequisites)
    * [Installing](#installing)
    * [How to use bdh in manually mode](#how-to-use-bdh-in-manually-mode)
@@ -16,51 +12,48 @@ Table of contents
    * [Author](#author)
 <!--te-->
 
-## [Getting Started](#getting-started)
-
-This document will explain to you how to get the BDH script using GIT clone or download the ZIP file and then proceed to instalation on your Linux or Unix Environment.
-
 ### [Prerequisites](#prerequisites)
 
 - BASH 4.1 (or higher)
-- Internet connection (necessary to send alert messages)
-- Signed up to Slack and create Incoming Webhook. Read more [here](https://api.slack.com/incoming-webhooks)  
+- Internet connection (necessary to send alert messages to SLACK)
+- Signed up to Slack and install Incoming Webhook APP. Check it out [here](https://api.slack.com/incoming-webhooks)  
 
 ### [Installing](#installing)
 
-- Download bdh file in zip format [here](https://github.com/macedojleo/BDH/zipball/master) or in tar format [here](https://github.com/macedojleo/BDH/tarball/master). unzip, and move it to any directory which is in the system PATH.
+- Download bdh [zip file](https://github.com/macedojleo/BDH/zipball/master) or in tar format [tar file](https://github.com/macedojleo/BDH/tarball/master).
 
-- Unzip it using unzip <file.zip> for zip file or tar -xvf <file.tar> for tar file
+- Unzip it.
 
-- Move BDH to any directory was set up on Linux or Unix PATH.
+- Move the BDH file to any PATH directory (use echo $PATH to see them).
 
-- To see all directories were set up on PATH use the command **$ echo $PATH**
+- Check if everything is working well using the command ```$ bdh -h```
 
-- Check if everything is working well using the command **$ bdh -h**
+### [Defining thresholds](#thresholds)
 
-## [BDH - Visual mode](#manually)
+- Open the BDH file with a text editor and edit the following lines to setting up the thresholds:
 
-The BDH visual mode, displays the disk usage of all FS through the terminal (on the screen). It will "printing" on the terminal screen the following alerts for each FS depending of it usage and the thresholds configured previously:
+ * Def_major="70";
+ * Def_critical="85";
+ * Def_urgent="95";
 
-- **NORMAL** usage (white)
-- The disk usage reached to **MAJOR** usage threshold (yellow)
-- The disk usage reached to **CRITICAL** usage threshold (red)
-- The disk usage reached to **URGENT** usage threshold (flashing)
+### [Use BDH in visual mode](#manually)
+
+Use **BDH** with one of these options [-k |-K (Kbytes), -m | -M (Mbytes), or -g | -G (Gbytes)] to show the current FS usage.
+
+```$ bdh -g or $ bdh -G #Gb Format.```
+```$ bdh -m or $ bdh -M #Mb Format.```
+```$ bdh -k or $ bdh -K #Kb Format.```
+	
+- The **NORMAL** usage is showing as white.
+- The **MAJOR** usage is showing as yellow.
+- The **CRITICAL** usage is showing as red.
+- The **URGENT** usage is showing flashing.
 
 ![Sample](/docs/sample.gif)
 
-### Parameters 
-
-You can use some parameters to display different measures of usage (Kb, Mb, and Gb).
-
-	$ bdh -g or $ bdh -G #Gb Format.
-	$ bdh -m or $ bdh -M #Mb Format.
-	$ bdh -k or $ bdh -K #Kb Format.
-	
-	
 ## [BDH - Deamon Mode](#automatic)
 
-Use BDH in deamon mode to monitor the disks usage automatically through a specific intervall time (in seconds) and send alert messages using SLACK when some threshold is reached.
+Use BDH with -d option 
 
 ![SlackMessages](/docs/SlackExampleMessages.png)
  
