@@ -1,18 +1,5 @@
 #! /bin/bash
 
-#############################################################
-# BDH - Easy and safe way to monitor Unix and Linux FS use  #
-# AUTHOR - Leonardo Macedo | macedojleo@gmail.com           #
-# FIRST RELEASE: 2013                                       #
-# LAST UPDATED: 02-19-2019                                  #
-#	        - Now you can customize thresholds.         #
-#               - Send alerts to slack through webhook app. #
-#               - Deamon mode.                              #
-#               - Log files                                 #
-#	        - STOP -s or -S                             #
-#		- Fix bugs.                                 #
-#############################################################
-
 #set alarm thresholds here:                                   
 
 Def_major="70";
@@ -28,15 +15,19 @@ SlackWebHook="INSERT YOUR WEBHOOK URL HERE"
 
 usage()
 {
-  echo -e "Usage: $0 [-t | -g | -m | -k ] [ -d Interval in seconds ] [-s]"
+  echo -e "Usage: $0 [ -g | -m | -k ] [ -d Interval in seconds ] [-s]"
   echo -e "\t OPTIONS:"
   echo -e "\t -g or -G show all FS as Gb values."
   echo -e "\t -m or -M show all FS as Mb values."
   echo -e "\t -k or -K show all FS as Kb values."
-  echo -e "\t -d or -D [INTERVAL IN SECONDS] - Daemon mode. It will send alert messages to SLACK using WEBHOOK APP"
+  echo -e "\t -d or -D [INTERVAL IN SECONDS] - It will start the BDH as a deamon process sending alert messages to SLACK always an FS threshold usage has reached. (Need WEBHOOK APP instaled on SLACK)"
   echo -e "\t -s or -S - Stop bdh daemon process"
   exit 2
 }
+
+if [ -Z $1 ]; then
+	usage
+fi
 
 log ()
 {
