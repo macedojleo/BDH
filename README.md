@@ -47,10 +47,10 @@ Use **BDH** with one of these options [-k |-K (Kbytes), -m | -M (Mbytes), or -g 
 
 The Filesystems usage will show on the screen as threshold previously configured:
 
-- **NORMAL** Threshould FS usage is showing as white.
-- **MAJOR** Threshould FS usage is showing as yellow.
-- **CRITICAL** Threshould FS usage is showing as red.
-- **URGENT** Threshould FS usage is showing flashing.
+- **NORMAL** threshold FS usage is showing as white.
+- **MAJOR** threshold FS usage is showing as yellow.
+- **CRITICAL** threshold FS usage is showing as red.
+- **URGENT** threshold FS usage is showing flashing.
 
 ![Sample](/docs/sample.gif)
 
