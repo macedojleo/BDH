@@ -45,7 +45,7 @@ Use **BDH** with one of these options [-k |-K (Kbytes), -m | -M (Mbytes), or -g 
 ```$ bdh -m or $ bdh -M```
 ```$ bdh -k or $ bdh -K```
 
-The Filesystems usage will show on the screen as threshold previously configured:
+The Filesystems usage will show on the screen as follows
 
 - **NORMAL** threshold FS usage is showing as white.
 - **MAJOR** threshold FS usage is showing as yellow.
