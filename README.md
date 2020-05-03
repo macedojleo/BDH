@@ -33,9 +33,9 @@ Table of contents
 
 Open the BDH file using your favorite text editor and edit the following lines to setting up the FS usage thresholds:
 
- * Def_major="70";
- * Def_critical="85";
- * Def_urgent="95";
+ 	Def_major="70";
+ 	Def_critical="85";
+ 	Def_urgent="95";
 
 ### [BDH - visual mode](#manually)
 
