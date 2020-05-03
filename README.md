@@ -31,7 +31,7 @@ Table of contents
 
 ### [Defining thresholds](#thresholds)
 
-Open the BDH file using your favorite text editor and edit the following lines to setting up the FS usage thresholds:
+Open the BDH file using your favorite text editor and change the following lines to setting up the FS usage thresholds with your values:
 
  	Def_major="70";
  	Def_critical="85";
