@@ -6,17 +6,18 @@ Table of contents
 <!--ts-->
    * [Prerequisites](#prerequisites)
    * [Installing](#installing)
-   * [How to use bdh in manually mode](#how-to-use-bdh-in-manually-mode)
-   * [How to use bdh in automatic mode](#how-to-use-bdh-in-automatic-mode)
-   * [Log file](#log-file)
-   * [Author](#author)
+   * [Defining thresholds](#thresholds)
+   * [BDH - visual mode](#manually)
+   * [BDH - Deamon Mode](#automatic)
+   * [BDH Log](#log)
+   * [Configure Webhook App for Slack](#webhook)
 <!--te-->
 
 ### [Prerequisites](#prerequisites)
 
 - BASH 4.1 (or higher)
 - Internet connection (necessary to send alert messages to SLACK)
-- Signed up to Slack and install Incoming Webhook APP. Check it out [here](https://api.slack.com/incoming-webhooks)  
+- Signed up to Slack and instaled Incoming Webhook APP. 
 
 ### [Installing](#installing)
 
