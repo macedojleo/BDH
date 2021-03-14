@@ -1,4 +1,4 @@
-# Monitore Linux and Unix FS usage and send alarm messages to SLACK.
+# Monitore Linux and Unix FS usage by sending notifification to SLACK.
 
 Table of contents
 =================
