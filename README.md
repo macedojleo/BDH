@@ -17,15 +17,15 @@ Table of contents
 
 ### [Installing](#installing)
 
-- Clone the project here: [zip file](https://github.com/macedojleo/BDH/zipball/master) or in tar format [tarball](https://github.com/macedojleo/BDH/tarball/master).
+- Clone the project here: [zip file](https://github.com/macedojleo/BDH/zipball/master) or [tarball](https://github.com/macedojleo/BDH/tarball/master).
 
-- Move the BDH file to PATH directory.
+- Move BDH script to any directory PATH.
 
-- Use ```$ bdh -h``` in oder to valide it.
+- Use ```$ bdh -h``` in order to valide it works.
 
 ### [Defining thresholds](#thresholds)
 
-Open the BDH file using your favorite text editor and change the following lines to setting up the FS usage thresholds with your values:
+Open BDH file using your favorite text editor and change those lines in order to customize the thresholds and its alerts:
 
  	Def_major="70";
  	Def_critical="85";
